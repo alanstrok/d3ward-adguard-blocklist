@@ -1,0 +1,33 @@
+! Title: Alan - Aggressive JS ad blockers (with $important)
+! Description: Blocks common ad script filenames everywhere with high priority
+! Updated: 2025-09-19
+! Syntax: AdGuard/uBO
+
+! ---- Filename-based (regex) ----
+/\/ads(?:bygoogle)?\.js(?:\?.*)?$/\$script,important
+/\/pagead(?:\/js\/.*|\.js)(?:\?.*)?$/\$script,important
+/\/gpt\.js(?:\?.*)?$/\$script,important
+/\/(?:adserver|adtag|ads|advert|advertising)(?:\.min)?\.js(?:\?.*)?$/\$script,important
+/\/(?:promo|sponsor)s?\.js(?:\?.*)?$/\$script,important
+
+! ---- Generic directory patterns (regex) ----
+/\/(?:ads?|adserver|advertising)\/.*\.js(?:\?.*)?$/\$script,important
+
+! ---- Google Ads explicit (path rules) ----
+||pagead2.googlesyndication.com/pagead/js/*$script,important
+||pagead2.googlesyndication.com/activeview*$script,important
+||pagead2.googlesyndication.com^$xhr,important
+||googleads.g.doubleclick.net^$important
+||securepubads.g.doubleclick.net^$important
+||googletagservices.com/tag/js/gpt.js$script,important
+||googletagmanager.com/gtm.js$script,important
+
+! ---- Social/trackers ad scripts (common) ----
+||connect.facebook.net/en_US/fbevents.js$script,important
+||static.ads-twitter.com^$script,important
+||ads-api.twitter.com^$important
+||ads.pinterest.com^$important
+||analytics.pinterest.com^$important
+
+! ---- Safety: allow-list examples (uncomment if a site breaks) ----
+! @@||example.com^$script,domain=example.com
